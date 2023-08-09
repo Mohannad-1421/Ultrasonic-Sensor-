@@ -1,0 +1,25 @@
+const byte triggerpin = 9;
+const byte echopin = 8;
+unsigned long traveltime = 0;//لحساب الوقت 
+int distance = 0;
+void setup()
+{
+  pinMode(triggerpin,OUTPUT);
+  pinMode(echopin,LOW);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  digitalWrite(triggerpin,LOW);
+  delayMicroseconds(5); 
+  digitalWrite(triggerpin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerpin,LOW);
+  
+  traveltime = pulseIn(echopin,HIGH);// فنكشن لقياس الوقت pulseIn
+  distance = (traveltime/2)*0.0343;//حساب المسافه
+  Serial.print("Distance in cm: ");
+  Serial.println(distance);
+  delay(200);
+}
